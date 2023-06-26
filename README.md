@@ -1,7 +1,12 @@
-# GitHub Auth Library
- A library to authenticate with github API.
 
+<div align="center">
+   <h1>GitHub Auth Library</h1>
+    <p>A library to authenticate with github API.<br></p>
+ 		<a href="https://www.npmjs.com/package/auth-github"> <img src="https://img.shields.io/npm/v/auth-github.svg?maxAge=3600" alt="npm version" /> </a>
+		 <a href="https://www.npmjs.com/package/auth-github"><img src="https://img.shields.io/npm/dt/auth-github.svg?maxAge=3600" alt="npm downloads" /></a>
+</div>
 
+  
 # Example
 
 ```javascript
