@@ -28,3 +28,53 @@ const accessToken = await gitAuth.getAccessToken(code);
 const user = await gitAuth.getUser(accessToken);
 console.log(user);
 ```
+
+
+# Advanced Example
+```javascript
+const express = require('express');
+const GitAuth = require("auth-github");
+
+const app = express();
+const port = 3000;
+
+const gitAuth = new GitAuth({
+  clientId: 'YOUR_CLIENT_ID',
+  clientSecret: 'YOUR_CLIENT_SECRET',
+  redirectUri: 'http://localhost:3000/callback',
+});
+
+app.get('/', (req, res) => {
+  const state = Math.random().toString(36).substring(2, 15);
+  const scope = 'user';
+  const authorizeUrl = gitAuth.getAuthorizeUrl(state, scope);
+  res.send(`
+    <h1>Login with GitHub</h1>
+    <a href="${authorizeUrl}">Authorize GitHub</a>
+  `);
+});
+
+app.get('/callback', async (req, res) => {
+  const { code, state } = req.query;
+  try {
+    const accessToken = await gitAuth.getAccessToken(code);
+    const user = await gitAuth.getUser(accessToken);
+    res.send(`
+      <h1>Welcome, ${user.name}!</h1>
+      <img src="${user.avatarUrl}" alt="Profile picture">
+    `);
+  } catch (err) {
+    res.send(`<h1>Error: ${err.message}</h1>`);
+  }
+});
+
+app.listen(port, () => {
+  console.log(`App listening at http://localhost:${port}`);
+});
+```
+
+# Contribute
+Feel free to fork, edit, pull request this repository, contributes and modification are welcomed.
+
+# Support
+If you need any support, contact me at abdullah@jauish.com
